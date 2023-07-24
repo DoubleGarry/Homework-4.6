@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
+
+    <changeSet id="add-faculty.1" author="Semenikhin">
+        <preConditions>
+            <and>
+                <tableExists tableName="faculty"/>
+                <and>
+                    <tableIsEmpty tableName="faculty"/>
+                </and>
+            </and>
+        </preConditions>
+
+        <insert tableName="faculty">
+            <column name="name">Гриффендор</column>
+            <column name="color">Зеленый</column>
+        </insert>
+
+        <insert tableName="faculty">
+            <column name="name">Слизерен</column>
+            <column name="color">Черный</column>
+        </insert>
+
+        <insert tableName="faculty">
+            <column name="name">Когтевран</column>
+            <column name="color">Красный</column>
+        </insert>
+
+        <insert tableName="faculty">
+            <column name="name">Пуфендуй</column>
+            <column name="color">Коричневый</column>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

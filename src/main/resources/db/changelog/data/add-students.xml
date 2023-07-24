@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
+
+    <changeSet id="add-student.1" author="Semenikhin">
+        <preConditions>
+            <and>
+                <tableExists tableName="student"/>
+                <and>
+                    <tableIsEmpty tableName="student"/>
+                </and>
+            </and>
+        </preConditions>
+
+        <insert tableName="student">
+            <column name="name">Гарри</column>
+            <column name="age">17</column>
+            <column name="faculty_id">1</column>
+        </insert>
+
+        <insert tableName="student">
+            <column name="name">Рон</column>
+            <column name="age">16</column>
+            <column name="faculty_id">1</column>
+        </insert>
+
+        <insert tableName="student">
+            <column name="name">Гермиона</column>
+            <column name="age">17</column>
+            <column name="faculty_id">1</column>
+        </insert>
+
+        <insert tableName="student">
+            <column name="name">Подрик</column>
+            <column name="age">18</column>
+            <column name="faculty_id">1</column>
+        </insert>
+
+        <insert tableName="student">
+            <column name="name">Лаванда</column>
+            <column name="age">18</column>
+            <column name="faculty_id">1</column>
+        </insert>
+
+        <insert tableName="student">
+            <column name="name">Драко</column>
+            <column name="age">17</column>
+            <column name="faculty_id">2</column>
+        </insert>
+
+        <insert tableName="student">
+            <column name="name">Гойл</column>
+            <column name="age">16</column>
+            <column name="faculty_id">2</column>
+        </insert>
+
+        <insert tableName="student">
+            <column name="name">Крег</column>
+            <column name="age">17</column>
+            <column name="faculty_id">2</column>
+        </insert>
+
+        <insert tableName="student">
+            <column name="name">Регулус</column>
+            <column name="age">18</column>
+            <column name="faculty_id">2</column>
+        </insert>
+
+        <insert tableName="student">
+            <column name="name">Бельвина</column>
+            <column name="age">18</column>
+            <column name="faculty_id">2</column>
+        </insert>
+
+        <insert tableName="student">
+            <column name="name">Маркус</column>
+            <column name="age">17</column>
+            <column name="faculty_id">3</column>
+        </insert>
+
+        <insert tableName="student">
+            <column name="name">Терри</column>
+            <column name="age">16</column>
+            <column name="faculty_id">3</column>
+        </insert>
+
+        <insert tableName="student">
+            <column name="name">Сирона</column>
+            <column name="age">17</column>
+            <column name="faculty_id">3</column>
+        </insert>
+
+        <insert tableName="student">
+            <column name="name">Джереми</column>
+            <column name="age">18</column>
+            <column name="faculty_id">3</column>
+        </insert>
+
+        <insert tableName="student">
+            <column name="name">Сивилла</column>
+            <column name="age">18</column>
+            <column name="faculty_id">3</column>
+        </insert>
+
+        <insert tableName="student">
+            <column name="name">Филлип</column>
+            <column name="age">17</column>
+            <column name="faculty_id">4</column>
+        </insert>
+
+        <insert tableName="student">
+            <column name="name">Поппи</column>
+            <column name="age">16</column>
+            <column name="faculty_id">4</column>
+        </insert>
+
+        <insert tableName="student">
+            <column name="name">Сильванус</column>
+            <column name="age">17</column>
+            <column name="faculty_id">4</column>
+        </insert>
+
+        <insert tableName="student">
+            <column name="name">Юстас</column>
+            <column name="age">18</column>
+            <column name="faculty_id">4</column>
+        </insert>
+
+        <insert tableName="student">
+            <column name="name">Кьяра</column>
+            <column name="age">18</column>
+            <column name="faculty_id">4</column>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>
