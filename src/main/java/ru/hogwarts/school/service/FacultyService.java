@@ -74,11 +74,4 @@ public class FacultyService {
                 .map(studentMapper::toDto)
                 .toList();
     }
-
-    public String getTheMostLongerFacultyName() {
-        return facultyRepository.findAll().stream()
-                .map(Faculty::getName)
-                .max(comparing(String::length))
-                .orElse(null);
-    }
 }

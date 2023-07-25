@@ -31,5 +31,4 @@ public class AvatarMapper {
                 .studentId(avatarRepository.studentId(avatar.getId()))
                 .build();
     }
-
 }

@@ -1,7 +1,5 @@
 package ru.hogwarts.school.service;
 
-import jakarta.annotation.Nullable;
-import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.hogwarts.school.dto.FacultyDtoOut;
 import ru.hogwarts.school.dto.StudentDtoIn;
@@ -16,11 +14,11 @@ import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repository.AvatarRepository;
 import ru.hogwarts.school.repository.FacultyRepository;
 import ru.hogwarts.school.repository.StudentRepository;
+import jakarta.annotation.Nullable;
+import lombok.AllArgsConstructor;
 
 import java.util.Collection;
 import java.util.Optional;
-
-import static java.util.Comparator.comparing;
 
 @Service
 @AllArgsConstructor
@@ -30,6 +28,7 @@ public class StudentService {
     private final AvatarRepository avatarRepository;
     private final StudentMapper studentMapper;
     private final FacultyMapper facultyMapper;
+    private final Object lock = new Object();
 
     public StudentDtoOut create(StudentDtoIn studentDtoIn) {
         return studentMapper.toDto(
@@ -109,19 +108,61 @@ public class StudentService {
                 .toList();
     }
 
-    public Collection<StudentDtoOut> findAllStudentsWithNameStartedOnA() {
-        return studentRepository.findAll().stream()
-                .peek(student -> student.setName(student.getName().toUpperCase()))
+    public Collection<StudentDtoOut> getAllMultiThread() {
+        var students = studentRepository.findAll().stream()
                 .map(studentMapper::toDto)
-                .filter(studentDtoOut -> studentDtoOut.getName().startsWith("А"))
-                .sorted(comparing(StudentDtoOut::getName))
                 .toList();
+
+        System.out.println(Thread.currentThread().getName() + " " + students.get(0));
+        System.out.println(Thread.currentThread().getName() + " " + students.get(1));
+
+        new Thread(() -> {
+            System.out.println(Thread.currentThread().getName() + " " + students.get(2));
+            System.out.println(Thread.currentThread().getName() + " " + students.get(3));
+        }).start();
+
+        new Thread(() -> {
+            System.out.println(Thread.currentThread().getName() + " " + students.get(4));
+            System.out.println(Thread.currentThread().getName() + " " + students.get(5));
+        }).start();
+
+
+        return students;
     }
 
-    public Double getAvgAgeViaApp() {
-        return studentRepository.findAll().stream()
-                .mapToDouble(Student::getAge)
-                .average()
-                .orElse(0.0);
+    public Collection<StudentDtoOut> getAllMultiThreadWithSynchronized() {
+        var students = studentRepository.findAll().stream()
+                .map(studentMapper::toDto)
+                .toList();
+
+        print(students.get(0), students.get(1));
+
+        var thread1 = new Thread(() -> {
+            print(students.get(2), students.get(3));
+        });
+
+        var thread2 = new Thread(() -> {
+            print(students.get(4), students.get(5));
+        });
+
+
+        try {
+            thread1.start();
+            thread1.join();
+            thread2.start();
+            thread2.join();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        return students;
+    }
+
+    private void print(StudentDtoOut... students) {
+        synchronized (lock) {
+            for (StudentDtoOut stud : students) {
+                System.out.println(Thread.currentThread().getName() + " " + stud);
+            }
+        }
     }
 }

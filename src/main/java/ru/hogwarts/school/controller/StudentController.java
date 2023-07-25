@@ -1,13 +1,17 @@
 package ru.hogwarts.school.controller;
 
-import lombok.AllArgsConstructor;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import ru.hogwarts.school.dto.FacultyDtoOut;
 import ru.hogwarts.school.dto.StudentDtoIn;
 import ru.hogwarts.school.dto.StudentDtoOut;
 import ru.hogwarts.school.service.AvatarService;
 import ru.hogwarts.school.service.StudentService;
+import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.Collection;
 
 @AllArgsConstructor
@@ -49,13 +53,40 @@ public class StudentController {
         return studentService.findStudentsByAgeBetween(from, to);
     }
 
-    @GetMapping("/find-all-with-name-started-on-a")
-    public Collection<StudentDtoOut> findAllStudentsWithNameStartedOnA() {
-        return studentService.findAllStudentsWithNameStartedOnA();
+    @GetMapping("/{id}/faculty")
+    public FacultyDtoOut findStudentsFaculty(@PathVariable Long id) {
+        return studentService.findStudentsFaculty(id);
     }
 
-    @GetMapping("/avg-age-via-app")
-    public ResponseEntity<Double> getAvgAgeViaApp() {
-        return ResponseEntity.ok(studentService.getAvgAgeViaApp());
+    @PostMapping(value = "/{id}/avatar", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<String> uploadAvatar(@PathVariable("id") long studentId,
+                                               @RequestParam MultipartFile avatarImage) throws IOException {
+        avatarService.uploadAvatar(studentId, avatarImage);
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/total-count")
+    public ResponseEntity<Integer> getTotalCountStudents() {
+        return ResponseEntity.ok(studentService.getTotalCountStudents());
+    }
+
+    @GetMapping("/avg-age")
+    public ResponseEntity<Double> getAvgAgeStudents() {
+        return ResponseEntity.ok(studentService.getAvgAgeStudents());
+    }
+
+    @GetMapping("/last-five")
+    public Collection<StudentDtoOut> getLastFiveStudents() {
+        return studentService.getLastFiveStudents();
+    }
+
+    @GetMapping("/get-all-multi-thread")
+    public Collection<StudentDtoOut> getAllMultiThread() {
+        return studentService.getAllMultiThread();
+    }
+
+    @GetMapping("/get-all-multi-thread-with-synchronized")
+    public Collection<StudentDtoOut> getAllMultiThreadWithSynchronized() {
+        return studentService.getAllMultiThreadWithSynchronized();
     }
 }
