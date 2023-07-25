@@ -14,15 +14,4 @@ public class InfoService {
     public Integer getPort() {
         return serverProperties.getPort();
     }
-
-    public Integer doSomething() {
-        var start = System.currentTimeMillis();
-        int result = 0;
-        for (int i = 1; i < 1_000_000; i++) {
-            result += i;
-        }
-        var end = System.currentTimeMillis();
-        log.info("doSomething выполнил работу за {} мс", end - start);
-        return result;
-    }
 }

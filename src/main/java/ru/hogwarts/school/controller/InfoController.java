@@ -17,9 +17,4 @@ public class InfoController {
     public ResponseEntity<Integer> getPort() {
         return ResponseEntity.ok(infoService.getPort());
     }
-
-    @GetMapping("/doSomething")
-    public ResponseEntity<Integer> doSomething() {
-        return ResponseEntity.ok(infoService.doSomething());
-    }
 }
